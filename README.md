@@ -13,5 +13,5 @@ Note, that the mpicmd is preset to run mpiexec with oversubscription.
 ```
     uses: apes-suite/build-action@v1
     with:
-      warg-args: 'build --targets=ateles'
+      waf-args: 'build --targets=ateles'
 ```
