@@ -1,0 +1,11 @@
+name: 'Build APES solver'
+description: 'Run the bin/waf command in the repo directory'
+inputs:
+  waf-args:
+    description: 'Arguments to the bin/waf command'
+    required: true
+    default: 'build'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+
