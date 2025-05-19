@@ -4,8 +4,9 @@ inputs:
   waf-args:
     description: 'Arguments to the bin/waf command'
     required: true
-    default: 'build'
+    default: 'configure build'
 runs:
   using: 'docker'
   image: 'Dockerfile'
-
+  args:
+    - ${{ inputs.waf-args }}
