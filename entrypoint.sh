@@ -1,6 +1,8 @@
 #!/bin/bash
 
 echo "Building with Pyenv $ENV_VERSION"
-env-freeze
+env
 echo ""
-bin/waf --mpicmd="mpiexec --oversubscribe" $@
+git config --global --add safe.directory $PWD
+useradd tester
+bin/waf --mpicmd="sudo -u tester mpiexec --oversubscribe" $@
