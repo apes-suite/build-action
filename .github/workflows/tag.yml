@@ -27,6 +27,7 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         dry-run: true
         with-v: true
-
-    - run: echo "New tag: ${{ steps.tagbump.outputs.new-tag }}"
+    - name: Control output
+      run: |
+        echo "New tag: ${{ steps.tagbump.outputs.new-tag }}"
 
