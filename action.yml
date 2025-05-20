@@ -5,8 +5,13 @@ inputs:
     description: 'Arguments to the bin/waf command'
     required: true
     default: 'configure build'
+  path:
+    description: 'Path in the project in which waf is to be run'
+    required: true
+    default: '.'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.waf-args }}
+    - ${{ inputs.path }}
