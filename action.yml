@@ -1,5 +1,8 @@
 name: 'Build APES solver'
 description: 'Run the bin/waf command in the repo directory'
+branding:
+  icon: 'command'
+  color: 'orange'
 inputs:
   waf-args:
     description: 'Arguments to the bin/waf command'

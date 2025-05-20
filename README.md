@@ -8,7 +8,7 @@ build phase with waf.
 
 ### `waf-args`
 
-**Required** The arguments to pass to waf. Default `"build"`.
+**Required** The arguments to pass to waf. Default `"configure build"`.
 Note, that the mpicmd is preset to run mpiexec with oversubscription.
 
 ### `path`
