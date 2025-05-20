@@ -17,7 +17,7 @@ jobs:
     permissions:
       contents: write
     outputs:
-      new-tag: v${{ steps.tagbump.outputs.new-tag }}
+      new-tag: ${{ steps.tagbump.outputs.new-tag }}
       otag: ${{ steps.tagbump.outputs.tag }}
     strategy:
       matrix:
