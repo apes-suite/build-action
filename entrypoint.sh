@@ -9,12 +9,12 @@ mkdir -p /home
 cp -rfL . /home/apes
 chown -R apes /home/apes
 ORIGIN=$PWD
-cd /home/apes/ws
+cd /home/apes
 echo "Running bin/waf --mpicmd='mpiexec --oversubscribe' $@"
 runuser -u apes -- bin/waf --mpicmd="mpiexec --oversubscribe" $@
 SUCCESS=$?
 cd $ORIGIN
-if $SUCCESS; then
+if [[ $SUCCESS ]]; then
   echo "Copying from user workspace"
   cp -rfL /home/apes/build .
 fi
