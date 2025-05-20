@@ -2,7 +2,8 @@
 
 echo "Building with Pyenv $ENV_VERSION"
 source $VIRTUAL_ENV/bin/activate
-env-freeze
+echo "PATH: $PATH"
+$VIRTUAL_ENV/bin/pip freeze --disable-pip-version-check | grep -Ei 'peon-apes|gleaner|ford|apes-shepherd|pysys'
 echo ""
 echo "Copying to user workspace"
 mkdir -p /home
