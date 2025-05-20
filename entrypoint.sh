@@ -2,10 +2,19 @@
 
 echo "Building with Pyenv $ENV_VERSION"
 export PATH="$VIRTUAL_ENV/bin:$PATH"
-mkdir -p /github/home/.cache/pip
 env-freeze
 echo ""
-git config --global --add safe.directory '*'
-export OMPI_ALLOW_RUN_AS_ROOT=1
-export OMPI_ALLOW_RUN_AS_ROOT_CONFIRM=1
-bin/waf --mpicmd="mpiexec --oversubscribe" $@
+echo "Copying to user workspace"
+copy -rfL . /home/apes/ws
+chown -R apes /home/apes/ws
+ORIGIN=$PWD
+cd /home/apes/ws
+echo "Running bin/waf --mpicmd='mpiexec --oversubscribe' $@"
+runuser -u apes -- bin/waf --mpicmd="mpiexec --oversubscribe" $@
+SUCCESS=$?
+cd $ORIGIN
+if $SUCCESS; then
+  echo "Copying from user workspace"
+  cp -rfL /home/apes/ws/build .
+fi
+exit $SUCCESS
