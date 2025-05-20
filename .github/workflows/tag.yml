@@ -34,13 +34,14 @@ jobs:
 
   movetags:
     needs: autotag
-    if: ${{ needs.autotag.outputs.new-tag == needs.autotag.outputs.otag }}
+    #if: ${{ needs.autotag.outputs.new-tag == needs.autotag.outputs.otag }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
     - name: Get semvers and update MAJOR and MINOR tags
       run: |
+        echo "old tag: ${{ needs.autotag.outputs.otag }}
         FULL=${{ needs.autotag.outputs.new-tag }}
         MINOR=${FULL%.*}
         MAJOR=${MINOR%%.*}
