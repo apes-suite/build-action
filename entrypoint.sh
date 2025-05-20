@@ -5,8 +5,9 @@ source $VIRTUAL_ENV/bin/activate
 env-freeze
 echo ""
 echo "Copying to user workspace"
-cp -rfL . /home/apes/ws
-chown -R apes /home/apes/ws
+mkdir -p /home
+cp -rfL . /home/apes
+chown -R apes /home/apes
 ORIGIN=$PWD
 cd /home/apes/ws
 echo "Running bin/waf --mpicmd='mpiexec --oversubscribe' $@"
@@ -15,6 +16,6 @@ SUCCESS=$?
 cd $ORIGIN
 if $SUCCESS; then
   echo "Copying from user workspace"
-  cp -rfL /home/apes/ws/build .
+  cp -rfL /home/apes/build .
 fi
 exit $SUCCESS
