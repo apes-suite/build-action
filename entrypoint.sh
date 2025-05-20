@@ -1,11 +1,11 @@
 #!/bin/bash
 
 echo "Building with Pyenv $ENV_VERSION"
-export PATH="$VIRTUAL_ENV/bin:$PATH"
+source $VIRTUAL_ENV/bin/activate
 env-freeze
 echo ""
 echo "Copying to user workspace"
-copy -rfL . /home/apes/ws
+cp -rfL . /home/apes/ws
 chown -R apes /home/apes/ws
 ORIGIN=$PWD
 cd /home/apes/ws
