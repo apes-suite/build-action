@@ -3,8 +3,8 @@ name: Bump version
 on:
   workflow_dispatch:
   pull_request:
-    #types:
-    #  - closed
+    types:
+      - closed
     branches:
       - main
 concurrency:
@@ -12,7 +12,7 @@ concurrency:
   
 jobs:
   autotag:
-    #if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -30,7 +30,6 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           branch: main
-          dry-run: true
           with-v: true
 
   movetags:
