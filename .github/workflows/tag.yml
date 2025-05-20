@@ -34,7 +34,7 @@ jobs:
 
   movetags:
     needs: autotag
-    if: ${{ needs.autotag.outputs.updated == needs.autotag.outputs.otag }}
+    if: ${{ needs.autotag.outputs.new-tag == needs.autotag.outputs.otag }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
