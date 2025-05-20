@@ -25,6 +25,7 @@ jobs:
       uses: phish108/autotag-action@v1.1.64
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        branch: main
         dry-run: true
         with-v: true
     - name: Control output
