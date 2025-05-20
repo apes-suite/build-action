@@ -3,14 +3,16 @@ name: Bump version
 on:
   workflow_dispatch:
   pull_request:
-    #types:
-    #  - closed
+    types:
+      - closed
     branches:
       - main
-
+concurrency:
+  group: tagging
+  
 jobs:
   autotag:
-    #if: github.event.pull_request.merged == true
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -21,7 +23,6 @@ jobs:
       matrix:
         node-version:
           - 12
-
     steps:
     - name: Bump version and push tag
       id: tagbump
@@ -29,7 +30,6 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         branch: main
-        dry-run: true
         with-v: true
 
   movetags:
@@ -44,10 +44,9 @@ jobs:
         FULL=${{ needs.autotag.outputs.new-tag }}
         MINOR=${FULL%.*}
         MAJOR=${MINOR%%.*}
-        echo "tags to move: $MINOR, $MAJOR"
-        echo "git config --global user.name 'github-actions[bot]'"
-        echo "git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'"
-        echo "git tag -fa "${MAJOR}" -m 'Major release'"
-        echo "git push origin "${MAJOR}" --force"
-        echo "git tag -fa "${MINOR}" -m 'Minor release'"
-        echo "git push origin "${MINOR}" --force"
+        git config --global user.name 'github-actions[bot]'
+        git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+        git tag -fa "${MAJOR}" -m 'Major release'
+        git push origin "${MAJOR}" --force
+        git tag -fa "${MINOR}" -m 'Minor release'
+        git push origin "${MINOR}" --force
