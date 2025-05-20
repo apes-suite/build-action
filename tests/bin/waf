@@ -1,0 +1,8 @@
+#!/bin/bash
+echo "Simulating waf execution:"
+echo "USER: $USER"
+echo "HOME: $HOME"
+echo "PWD: $PWD"
+echo "bin/waf $@"
+mkdir build
+touch build/created-file

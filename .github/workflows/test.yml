@@ -1,0 +1,27 @@
+name: Check the action
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  test-action:
+    name: Testing the GH action
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        id: checkout
+        uses: actions/checkout@v4
+
+      - name:
+        id: test-build-action
+        uses: ./
+        with:
+          waf-args: "configure build"
+          path: "tests"
+
