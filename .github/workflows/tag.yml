@@ -40,7 +40,7 @@ jobs:
     steps:
     - name: Get semvers and update MAJOR and MINOR tags
       run: |
-        FULL=${{ jobs.autotag.outputs.new-tag }}
+        FULL=${{ needs.autotag.outputs.new-tag }}
         MINOR=${FULL%.*}
         MAJOR=${MINOR%%.*}
         echo "tags to move: $MINOR, $MAJOR"
