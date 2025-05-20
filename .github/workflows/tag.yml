@@ -9,11 +9,14 @@ on:
       - main
 
 jobs:
-  tag:
+  autotag:
     #if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    outputs:
+      new-tag: ${{ steps.tagbump.outputs.new-tag }}
+      updated: ${{ steps.tagbump.outputs.new-tag != steps.tagbump.outputs.tag }}
     strategy:
       matrix:
         node-version:
@@ -28,12 +31,21 @@ jobs:
         branch: main
         dry-run: true
         with-v: true
-    - name: Control output
-      run: |
-        echo "New tag: ${{ steps.tagbump.outputs.new-tag }}"
+
+  movetags:
+    needs: autotag
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
     - name: Get semvers and update MAJOR and MINOR tags
       run: |
-        FULL=${{ steps.tagbump.outputs.new-tag }}
+        FULL=${{ jobs.autotag.outputs.new-tag }}
         MINOR=${FULL%.*}
         MAJOR=${MINOR%%.*}
         echo "tags to move: $MINOR, $MAJOR"
+        echo "git config --global user.name 'github-actions[bot]'"
+        echo "git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'"
+        echo "git tag -fa "${MAJOR}" -m 'Major release'"
+        echo "git push origin "${MAJOR}" --force"
+        echo "git tag -fa "${MINOR}" -m 'Minor release'"
+        echo "git push origin "${MINOR}" --force"
