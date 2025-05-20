@@ -37,6 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    steps:
     - name: Get semvers and update MAJOR and MINOR tags
       run: |
         FULL=${{ jobs.autotag.outputs.new-tag }}
