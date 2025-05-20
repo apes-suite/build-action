@@ -3,9 +3,9 @@
 echo "Building with Pyenv $ENV_VERSION"
 source $VIRTUAL_ENV/bin/activate
 env-freeze
-echo ""
-echo ""
-echo "Copying to user workspace"
+echo "-------------------------"
+echo "-------------------------"
+echo "Copying $2 to user workspace"
 mkdir -p /home
 cp -rfL $2 /home/apes
 chown -R apes /home/apes
@@ -16,7 +16,7 @@ runuser -u apes -- bin/waf --mpicmd="mpiexec --oversubscribe" $1
 SUCCESS=$?
 cd $ORIGIN
 if [[ $SUCCESS ]]; then
-  echo "Copying from user workspace"
-  cp -rfL /home/apes/build $2
+  echo "Copying $3 from user workspace to $ORIGIN/$2"
+  cp -rfL /home/apes/$3 $2
 fi
 exit $SUCCESS

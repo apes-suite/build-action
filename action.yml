@@ -9,9 +9,14 @@ inputs:
     description: 'Path in the project in which waf is to be run'
     required: true
     default: '.'
+  obtain:
+    description: 'Path to copy back after building'
+    required: true
+    default: 'build'
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
     - ${{ inputs.waf-args }}
     - ${{ inputs.path }}
+    - ${{ inputs.obtain }}
