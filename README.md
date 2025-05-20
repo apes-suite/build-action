@@ -4,6 +4,8 @@ Github action to build an APES solver
 This action utilizes the apes-pyenv docker container to run the
 build phase with waf.
 
+[![Run test](https://github.com/apes-suite/build-action/actions/workflows/test.yml/badge.svg)](https://github.com/apes-suite/build-action/actions/workflows/test.yml)
+
 ## Inputs
 
 ### `waf-args`
