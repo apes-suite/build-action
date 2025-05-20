@@ -17,7 +17,7 @@ jobs:
     permissions:
       contents: write
     outputs:
-      new-tag: ${{ steps.tagbump.outputs.new-tag }}
+      new-tag: ${{ startsWith(steps.tagbump.outputs.new-tag, 'v') && steps.tagbump.outputs.new-tag || format('v{0}', steps.tagbump.outputs.new-tag) }}
       otag: ${{ steps.tagbump.outputs.tag }}
     strategy:
       matrix:
