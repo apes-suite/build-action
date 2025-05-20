@@ -21,19 +21,19 @@ echo "::endgroup::"
 echo "::group::Build-Finalization"
 cd $ORIGIN
 if [[ $SUCCESS ]]; then
-  echo "Successfully compiled $2 with:" >> $GITHUB_STEP_SUMMARY
-  echo "bin/waf --mpicmd='mpiexec --oversubscribe' $1" >> $GITHUB_STEP_SUMMARY
+  echo "* Successfully compiled \`$2\` with:" >> $GITHUB_STEP_SUMMARY
+  echo "  \`bin/waf --mpicmd='mpiexec --oversubscribe' $1\`" >> $GITHUB_STEP_SUMMARY
   echo "Copying $3 from user workspace to $ORIGIN/$2"
   cp -rfL /home/apes/$3 $2
   SUCCESS=$?
   if [[ $SUCCESS ]]; then
-    echo "Successfully copied $3 back to workspace" >> $GITHUB_STEP_SUMMARY
+    echo "* Successfully copied \`$3\` back to workspace" >> $GITHUB_STEP_SUMMARY
   else
-    echo "But FAILED to copy resulting $3!" >> $GITHUB_STEP_SUMMARY
+    echo "* But *FAILED* to copy resulting \`$3\`!" >> $GITHUB_STEP_SUMMARY
   fi
 else
-  echo "FAILED to compile $2 with:" >> $GITHUB_STEP_SUMMARY
-  echo "bin/waf --mpicmd='mpiexec --oversubscribe' $1" >> $GITHUB_STEP_SUMMARY
+  echo "**FAILED** to compile \`$2\` with:" >> $GITHUB_STEP_SUMMARY
+  echo "\`bin/waf --mpicmd='mpiexec --oversubscribe' $1\`" >> $GITHUB_STEP_SUMMARY
 fi
 echo "::endgroup::"
 exit $SUCCESS
