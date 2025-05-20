@@ -18,7 +18,7 @@ jobs:
       contents: write
     outputs:
       new-tag: ${{ steps.tagbump.outputs.new-tag }}
-      updated: ${{ steps.tagbump.outputs.new-tag != steps.tagbump.outputs.tag }}
+      otag: ${{ steps.tagbump.outputs.tag }}
     strategy:
       matrix:
         node-version:
@@ -34,7 +34,7 @@ jobs:
 
   movetags:
     needs: autotag
-    if: needs.autotag.outputs.updated == true
+    if: ${{ needs.autotag.outputs.updated == needs.autotag.outputs.otag }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
