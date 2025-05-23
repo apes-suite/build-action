@@ -16,15 +16,8 @@ Note, that the mpicmd is preset to run mpiexec with oversubscription.
 ### `path`
 
 **Required** The (relative) path in the project to run the bin/waf
-command in. This directory will be copied into the home of the
-apes user, and `bin/waf` will be executed inside this directory.
+command in.
 Default is `"."`.
-
-### `obtain`
-
-**Required** The (relative) path in the `path` directory to copy
-back from the users workspace into the github workspace.
-Default is `"build"`.
 
 
 ## Example usage
@@ -34,5 +27,4 @@ Default is `"build"`.
     with:
       waf-args: 'configure build --targets=ateles'
       path: '.'
-      obtain: 'build'
 ```
